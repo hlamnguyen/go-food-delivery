@@ -3,6 +3,7 @@ package main
 import (
 	"fooddlv/appctx"
 	"fooddlv/note/notehdl"
+	"fooddlv/restaurants/restauranthdl"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -40,6 +41,9 @@ func main() {
 		noteId := c.Param("note-id")
 		c.String(http.StatusOK, "Hello %s", noteId)
 	})
+
+	restaurants := v1.Group("/restaurants")
+	restaurants.GET("", restauranthdl.ListRestaurant(appCtx))
 
 	r.Run()
 }
