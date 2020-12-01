@@ -5,6 +5,7 @@ import (
 	"fooddlv/auth/authhdl"
 	"fooddlv/middleware"
 	"fooddlv/note/notehdl"
+	"fooddlv/restaurants/restauranthdl"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -56,6 +57,8 @@ func main() {
 	//v1.GET("my-profile", ParseToken, GetProfile)
 	//users := v1.Group("users", ParseToken)
 	//users.GET("/:user-id")
+	restaurants := v1.Group("/restaurants")
+	restaurants.GET("", restauranthdl.ListRestaurant(appCtx))
 
 	r.Run()
 }
