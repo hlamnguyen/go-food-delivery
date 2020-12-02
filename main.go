@@ -6,6 +6,7 @@ import (
 	"fooddlv/middleware"
 	"fooddlv/note/notehdl"
 	"fooddlv/restaurants/restauranthdl"
+	"fooddlv/upload/imghdl"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -60,6 +61,10 @@ func main() {
 	//users.GET("/:user-id")
 	restaurants := v1.Group("/restaurants")
 	restaurants.GET("", restauranthdl.ListRestaurant(appCtx))
+
+	v1.Static("/file", "./public")
+	upload := v1.Group("/upload")
+	upload.POST("", imghdl.UploadImg(appCtx))
 
 	r.Run()
 }
