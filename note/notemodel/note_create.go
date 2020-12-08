@@ -11,11 +11,21 @@ var (
 )
 
 type NoteCreate struct {
-	Title   string `json:"title" gorm:"column:title;"`
-	Content string `json:"content" gorm:"column:content;"`
+	Id      int           `json:"id" gorm:"column:id;"`
+	Title   string        `json:"title" gorm:"column:title;"`
+	Content string        `json:"content" gorm:"column:content;"`
+	Image   *common.Image `json:"image" gorm:"column:image;"`
+
+	// Case upload image ids
+	ImageIds []int          `json:"image_ids" gorm:"-"`
+	Images   *common.Images `json:"images" gorm:"column:images;"`
 }
 
 func (NoteCreate) TableName() string { return Note{}.TableName() }
+
+func (n *NoteCreate) GetImageIds() []int {
+	return n.ImageIds
+}
 
 func (n *NoteCreate) Validate() error {
 	n.Title = strings.TrimSpace(n.Title)
