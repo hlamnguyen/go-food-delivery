@@ -168,7 +168,7 @@ type Requester interface {
 	LastName() string
 }
 
-//
+////
 //func AuthUser(c *gin.Context) {
 //	c.Set("user", &u{int: 10})
 //	c.Next()
